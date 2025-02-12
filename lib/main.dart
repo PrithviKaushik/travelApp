@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:travel_app/providers/auth_provider.dart';
+import 'package:travel_app/routes.dart';
+import 'package:travel_app/theme.dart';
 import 'firebase_options.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -10,7 +12,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const TravelApp());
+  runApp(MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => AuthProvider())],
+      child: const TravelApp()));
 }
 
 class TravelApp extends StatelessWidget {
@@ -20,17 +24,8 @@ class TravelApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'TravelFree',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('TravelFree'),
-        ),
-        body: Center(
-          child: Text('TravelFree'),
-        ),
-      ),
+      theme: appTheme,
+      routes: appRoutes,
     );
   }
 }
