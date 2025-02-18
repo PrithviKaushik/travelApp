@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:travel_app/providers/auth_provider.dart';
+import 'package:travel_app/providers/weather_provider.dart';
 import 'package:travel_app/routes.dart';
+import 'package:travel_app/services/services.dart';
 import 'package:travel_app/theme.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
@@ -13,8 +15,15 @@ void main() async {
   );
 
   runApp(MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => AuthProvider())],
-      child: const TravelApp()));
+    providers: [
+      ChangeNotifierProvider(create: (_) => AuthProvider()),
+      ChangeNotifierProvider(
+          create: (_) => WeatherProvider(
+              weatherService:
+                  WeatherService(apiKey: '16d08a2df3580415f76422da7be567a8'))),
+    ],
+    child: const TravelApp(),
+  ));
 }
 
 class TravelApp extends StatelessWidget {
