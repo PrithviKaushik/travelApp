@@ -33,6 +33,7 @@ class WeatherCard extends StatelessWidget {
                     cityName: cityName, forecast: forecast ?? [])));
       },
       child: Card(
+        surfaceTintColor: Colors.amber,
         margin: EdgeInsets.all(10),
         child: ListTile(
           leading: iconUrl.isEmpty

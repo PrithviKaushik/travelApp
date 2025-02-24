@@ -29,35 +29,73 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-    final weatherProvider = Provider.of<WeatherProvider>(context);
-    final placeProvider = Provider.of<PlaceProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('TravelFree'),
       ),
       body: Column(
         children: [
-          weatherProvider.isLoading
-              ? CircularProgressIndicator() // Show loading indicator
-              : weatherProvider.errorMessage != null
-                  ? Text(weatherProvider.errorMessage!) // Show error message
-                  : weatherProvider.currentWeather != null
-                      ? WeatherCard(
-                          cityName: weatherProvider.currentWeather!.cityName,
-                          weatherDescription:
-                              weatherProvider.currentWeather!.description,
-                          iconUrl: weatherProvider.currentWeather!.icon,
-                          temperature: weatherProvider.currentWeather!.temp,
-                          forecast: weatherProvider.forecast!,
-                        )
-                      : Text("No weather data available"),
-          Expanded(
-            child: DestinationsList(
-                places: placeProvider.places ?? [],
-                apiKey: placeProvider.placeApiKey),
+          SizedBox(
+            height: 8,
           ),
-          Center(
-            child: Text('TravelFree'),
+          Consumer<WeatherProvider>(
+            builder: (context, weatherProvider, child) {
+              return weatherProvider.isLoading
+                  ? CircularProgressIndicator() // Show loading indicator
+                  : weatherProvider.errorMessage != null
+                      ? Text(
+                          weatherProvider.errorMessage!) // Show error message
+                      : weatherProvider.currentWeather != null
+                          ? WeatherCard(
+                              cityName:
+                                  weatherProvider.currentWeather!.cityName,
+                              weatherDescription:
+                                  weatherProvider.currentWeather!.description,
+                              iconUrl: weatherProvider.currentWeather!.icon,
+                              temperature: weatherProvider.currentWeather!.temp,
+                              forecast: weatherProvider.forecast!,
+                            )
+                          : Text("No weather data available");
+            },
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'Popular Tourist Destinations',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.amberAccent,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 4,
+          ),
+          Consumer<PlaceProvider>(
+            builder: (context, placeProvider, child) {
+              return placeProvider.isLoading
+                  ? CircularProgressIndicator() // Show loading indicator
+                  : placeProvider.errorMessage != null
+                      ? Text(placeProvider.errorMessage!) // Show error message
+                      : placeProvider.places != null
+                          ? Expanded(
+                              child: DestinationsList(
+                                places: placeProvider.places ?? [],
+                                apiKey: placeProvider.placeApiKey,
+                              ),
+                            )
+                          : const Center(
+                              child: Text('No destinations available'),
+                            );
+            },
           ),
           ElevatedButton(
               onPressed: () async {
