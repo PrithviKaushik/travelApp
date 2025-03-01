@@ -40,7 +40,7 @@ class WeatherCard extends StatelessWidget {
               ? Icon(Icons.error) // If the iconUrl is empty, show an error icon
               : Image.network(
                   '$iconBaseUrl$iconUrl@2x.png', // Constructing the full URL
-                  width: 50, // Adjust the size as needed
+                  width: 50,
                   height: 50,
                   fit: BoxFit.cover,
                 ),
