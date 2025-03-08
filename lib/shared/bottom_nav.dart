@@ -17,10 +17,10 @@ class BottomNav extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            FontAwesomeIcons.handshake,
+            FontAwesomeIcons.photoVideo,
             size: 20,
           ),
-          label: 'Guide',
+          label: 'City Clicks',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.emergency, size: 20),
@@ -30,10 +30,10 @@ class BottomNav extends StatelessWidget {
       onTap: (int index) {
         switch (index) {
           case 0:
-            Navigator.pushNamed(context, '/home');
+            Navigator.pushReplacementNamed(context, '/home');
             break;
           case 1:
-            Navigator.pushNamed(context, '/guide');
+            Navigator.pushNamed(context, '/photos');
             break;
           case 2:
             Navigator.pushNamed(context, '/emergency');

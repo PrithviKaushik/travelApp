@@ -16,8 +16,9 @@ class DirectionsProvider extends ChangeNotifier {
       []; //List of LatLng points making up the DECODED route polyline. You update this list based on the polyline points returned by the API.
   StreamSubscription<Position>?
       _positionStreamSubscription; //stream subscription is the object you get when listening to a stream
-  DateTime _lastApiCall =
-      DateTime.now(); //timestamp to throttle how often you call Directions API
+  DateTime _lastApiCall = DateTime.now().subtract(const Duration(
+      seconds:
+          6)); //timestamp to throttle how often you call Directions API. IMPORTANT--->Here, an error occured when DateTime.now was used, as the throttling condition skipped the first api call, thus we subtracted it a bit so that the first call is made.
 
   DirectionsProvider({
     //constructor

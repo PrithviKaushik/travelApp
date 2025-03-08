@@ -34,6 +34,9 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('TravelFree'),
       ),
+      drawer: Drawer(
+        child: Text('Drawer'),
+      ),
       body: Column(
         children: [
           SizedBox(
