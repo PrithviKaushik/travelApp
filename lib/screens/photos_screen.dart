@@ -6,7 +6,6 @@ import 'package:travel_app/models/models.dart';
 import 'package:travel_app/providers/providers.dart';
 import 'package:travel_app/services/services.dart'; // Contains ImageUploadService.
 import 'package:travel_app/screens/screens.dart';
-import 'package:travel_app/shared/bottom_nav.dart'; // Contains PhotoDetailScreen.
 
 class PhotoListScreen extends StatefulWidget {
   @override
@@ -65,8 +64,8 @@ class _PhotoListScreenState extends State<PhotoListScreen> {
       floatingActionButton: _isUploading
           ? CircularProgressIndicator()
           : FloatingActionButton(
-              child: Icon(Icons.add),
               onPressed: _uploadImageDirectly,
+              child: Icon(Icons.add),
             ),
     );
   }

@@ -5,5 +5,5 @@ var appRoutes = {
   '/signin': (context) => SignInScreen(),
   '/home': (context) => HomeScreen(),
   '/photos': (context) => PhotoListScreen(),
-  '/emergency': (context) => EmergencyScreen(),
+  '/guide': (context) => GuideScreen(),
 };

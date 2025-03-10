@@ -4,6 +4,7 @@ import 'package:travel_app/models/models.dart';
 import 'dart:async';
 
 class ImageDownloadProvider extends ChangeNotifier {
+  bool isLoading = false;
   final String city;
   List<ImageModel> _photos =
       []; //private so that only provider can make changes to it.
@@ -26,6 +27,7 @@ class ImageDownloadProvider extends ChangeNotifier {
           .map((doc) => ImageModel.fromFirestore(
               doc)) //map takes each element of the list doc and applies a function to it, here that function is ImageModel's factory constructor that converts Document Snapshot to ImageModel.
           .toList(); //map() function returns an iterable. The toList() method converts that iterable (an iterable is an abstract collection that represents a sequence of elements that you can loop over) into a List, because we want _photos to be a list of ImageModels.
+      isLoading = true;
       notifyListeners();
     });
   }

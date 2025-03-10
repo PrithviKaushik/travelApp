@@ -23,8 +23,8 @@ class BottomNav extends StatelessWidget {
           label: 'City Clicks',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.emergency, size: 20),
-          label: 'Emergency',
+          icon: Icon(Icons.handshake, size: 20),
+          label: 'Guide',
         ),
       ],
       onTap: (int index) {
@@ -36,7 +36,7 @@ class BottomNav extends StatelessWidget {
             Navigator.pushNamed(context, '/photos');
             break;
           case 2:
-            Navigator.pushNamed(context, '/emergency');
+            Navigator.pushNamed(context, '/guide');
             break;
         }
       },

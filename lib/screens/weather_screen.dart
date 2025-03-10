@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:travel_app/models/models.dart';
 
 class WeatherForecastScreen extends StatelessWidget {
@@ -25,10 +26,10 @@ class WeatherForecastScreen extends StatelessWidget {
                 final item = forecast[index];
                 return ListTile(
                   leading: Image.network(
-                      'http://openweathermap.org/img/wn/${item.icon}@2x.png'), // Displaying the weather icon for forecast
-                  title: Text(item.description),
+                      'https://openweathermap.org/img/wn/${item.icon}@2x.png'), // Displaying the weather icon for forecast
+                  title: Text(toBeginningOfSentenceCase(item.description)),
                   subtitle: Text(
-                      '${item.temperature.toStringAsFixed(1)}°C, ${item.dateTime.toLocal()}'),
+                      '${item.temperature.toStringAsFixed(1)}°C, ${DateFormat('MMM dd, yyyy  -  h:mm a').format(item.dateTime.toLocal())}'),
                 );
               },
             ),

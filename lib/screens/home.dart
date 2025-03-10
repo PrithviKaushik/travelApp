@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:travel_app/providers/weather_provider.dart';
 import 'package:travel_app/shared/bottom_nav.dart';
 import 'package:travel_app/providers/providers.dart';
 import 'package:travel_app/widgets/destinations.dart';
@@ -35,7 +34,70 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text('TravelFree'),
       ),
       drawer: Drawer(
-        child: Text('Drawer'),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        child: ListView(
+          padding: EdgeInsets.zero, // Remove default padding.
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                // Use a primary container color for the header background.
+                color: Theme.of(context).colorScheme.primaryContainer,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.account_circle,
+                    size: 36,
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    authProvider.user?.displayName ?? 'Anonymous',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.contact_phone,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              title: Text(
+                'Emergency Contacts',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+              ),
+              onTap: () {
+                // Add navigation or functionality here.
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.logout,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              title: Text(
+                'Sign Out',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+              ),
+              onTap: () async {
+                await authProvider.signOut();
+                Navigator.pushReplacementNamed(context, '/');
+              },
+            ),
+          ],
+        ),
       ),
       body: Column(
         children: [
@@ -45,7 +107,14 @@ class _HomeScreenState extends State<HomeScreen> {
           Consumer<WeatherProvider>(
             builder: (context, weatherProvider, child) {
               return weatherProvider.isLoading
-                  ? CircularProgressIndicator() // Show loading indicator
+                  ? Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: CircularProgressIndicator(),
+                      ),
+                    ) // Show loading indicator
                   : weatherProvider.errorMessage != null
                       ? Text(
                           weatherProvider.errorMessage!) // Show error message
@@ -74,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
-                  color: Colors.amberAccent,
+                  color: Colors.amber,
                 ),
               ),
             ),
@@ -85,7 +154,15 @@ class _HomeScreenState extends State<HomeScreen> {
           Consumer<PlaceProvider>(
             builder: (context, placeProvider, child) {
               return placeProvider.isLoading
-                  ? CircularProgressIndicator() // Show loading indicator
+                  ? Expanded(
+                      child: Center(
+                        child: SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    ) // Show loading indicator
                   : placeProvider.errorMessage != null
                       ? Text(placeProvider.errorMessage!) // Show error message
                       : placeProvider.places != null
@@ -100,12 +177,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             );
             },
           ),
-          ElevatedButton(
-              onPressed: () async {
-                await authProvider.signOut();
-                Navigator.pushReplacementNamed(context, '/');
-              },
-              child: Text('Sign Out')),
         ],
       ),
       bottomNavigationBar: BottomNav(),

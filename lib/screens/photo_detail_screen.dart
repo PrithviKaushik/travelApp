@@ -78,7 +78,7 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
                       child: Row(
                         children: [
                           Text(
-                            "Likes: ${widget.photo.likes}",
+                            "${widget.photo.likes} likes",
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
@@ -115,7 +115,10 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
                           }
                           final commentDocs = snapshot.data!.docs;
                           if (commentDocs.isEmpty) {
-                            return Center(child: Text("No comments yet."));
+                            return Padding(
+                              padding: const EdgeInsets.all(100),
+                              child: Center(child: Text("No comments yet.")),
+                            );
                           }
                           return ListView.builder(
                             shrinkWrap: true,

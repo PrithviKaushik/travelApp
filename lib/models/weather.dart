@@ -44,10 +44,9 @@ class Forecast {
     //Forecast.fromJson is a named constructor. It allows you to create a Forecast instance from a JSON map.
     return Forecast(
         dateTime: DateTime.parse(json[
-            'dt_txt']), //DateTime.parse(...) is a Dart method that takes a string formatted as a date/time and converts it into a DateTime object.
-
-        description: json['weather'][0]['description'],
+            'dt_txt']), //DateTime.parse(...) is a Dart method that takes a string formatted as a date/time and converts it into a DateTime object.        description: json['weather'][0]['description'],
         temperature: (json['main']['temp'] as num).toDouble(),
+        description: json['weather'][0]['description'],
         icon: json['weather'][0]['icon']);
   }
 }
