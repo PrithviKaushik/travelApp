@@ -24,6 +24,7 @@ class ImageUploadService {
       print("Storage reference path: ${photoRef.fullPath}");
 
       try {
+        print("Uploading image with city: $userCity");
         // Start the upload task.
         UploadTask uploadTask = photoRef.putFile(imageFile);
         // Await its completion.
@@ -43,7 +44,7 @@ class ImageUploadService {
           'photoUrl': downloadUrl,
           'userId': userId,
           'city': userCity,
-          'timestamp': FieldValue.serverTimestamp(),
+          //'timestamp': FieldValue.serverTimestamp(),
           'likes': 0,
         });
         print("Photo metadata saved to Firestore.");

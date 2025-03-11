@@ -73,7 +73,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   Text('Don\'t have an account?'),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/');
+                      Navigator.pushReplacementNamed(context, '/signup');
                     },
                     child: const Text('Sign Up'),
                   )

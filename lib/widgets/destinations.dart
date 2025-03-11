@@ -46,6 +46,15 @@ class DestinationsList extends StatelessWidget {
                   Image.network(
                     'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${item.photoRef}&key=$apiKey',
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.grey[300],
+                        child: Center(
+                          child: Icon(Icons.broken_image,
+                              size: 50, color: Colors.grey),
+                        ),
+                      );
+                    },
                   ),
                   // Semi-transparent overlay using Opacity widget for better text readability
                   Opacity(

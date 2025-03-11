@@ -55,7 +55,7 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
                   children: [
                     // Large image area.
                     Container(
-                      height: 300,
+                      height: 400,
                       width: double.infinity,
                       child: Image.network(
                         widget.photo.photoUrl,
@@ -106,6 +106,8 @@ class _PhotoDetailScreenState extends State<PhotoDetailScreen> {
                             .snapshots(),
                         builder: (context, snapshot) {
                           if (snapshot.hasError) {
+                            print("Comments query error: ${snapshot.error}");
+
                             return Center(
                                 child: Text("Error loading comments"));
                           }

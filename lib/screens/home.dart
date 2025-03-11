@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:travel_app/screens/screens.dart';
 import 'package:travel_app/shared/bottom_nav.dart';
 import 'package:travel_app/providers/providers.dart';
 import 'package:travel_app/widgets/destinations.dart';
@@ -13,16 +14,24 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    // Fetch weather data and tourist destinations for current location on startup once
-    final weatherProvider =
-        Provider.of<WeatherProvider>(context, listen: false);
-    final placeProvider = Provider.of<PlaceProvider>(context, listen: false);
+  bool _hasInitialized = false;
 
-    weatherProvider.fetchWeather();
-    placeProvider.fetchTouristDestinations();
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_hasInitialized) {
+      _hasInitialized = true;
+      // Delay the API calls until after the first frame is rendered.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final weatherProvider =
+            Provider.of<WeatherProvider>(context, listen: false);
+        final placeProvider =
+            Provider.of<PlaceProvider>(context, listen: false);
+
+        weatherProvider.fetchWeather();
+        placeProvider.fetchTouristDestinations();
+      });
+    }
   }
 
   @override
@@ -31,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('TravelFree'),
+        title: Text('Travel App'),
       ),
       drawer: Drawer(
         backgroundColor: Theme.of(context).colorScheme.surface,
@@ -78,6 +87,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               onTap: () {
                 // Add navigation or functionality here.
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return EmergencyServicesScreen();
+                    },
+                  ),
+                );
               },
             ),
             ListTile(

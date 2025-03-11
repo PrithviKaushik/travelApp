@@ -14,6 +14,7 @@ class WeatherService {
     required this.apiKey,
     this.baseUrl = "https://api.openweathermap.org/data/2.5",
   });
+
   //getCurrentWeather method
   Future<CurrentWeather> getCurrentWeather(String city) async {
     final url = Uri.parse(
@@ -53,9 +54,21 @@ class WeatherService {
     }
   }
 
-  //this method gets city name based on gps coordinates (not dependent on openweathermap)
-  //uses geolocator package for gps coordinates and
+// Cached city Future to avoid multiple concurrent calls.
+  static Future<String>? _cityFuture;
+
+  // wrapper over _fetchCity to avoid multiple concurrent calls
   Future<String> getCityFromCurrentLocation() async {
+    // If a location fetch is already in progress or completed, use it.
+    if (_cityFuture != null) {
+      return _cityFuture!;
+    }
+    _cityFuture = _fetchCity();
+    return _cityFuture!;
+  } //this method gets city name based on gps coordinates (not dependent on openweathermap)
+
+  //uses geolocator package for gps coordinates and
+  Future<String> _fetchCity() async {
     Position position = await Geolocator.getCurrentPosition(
       locationSettings: LocationSettings(
         accuracy: LocationAccuracy

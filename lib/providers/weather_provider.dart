@@ -22,29 +22,28 @@ class WeatherProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    var status =
-        await Permission.location.request(); //asking location permission
+    var status = await Permission.location.request();
     if (status.isGranted) {
-      //attempts to fetch current weather and forecast from the WeatherService.
       try {
         String city = await weatherService.getCityFromCurrentLocation();
-        currentWeather = await weatherService.getCurrentWeather(city);
-        forecast = await weatherService.getForecast(city);
-        //clearing any previous error messages
-        errorMessage = null;
+
+        if (city.isNotEmpty) {
+          currentWeather = await weatherService.getCurrentWeather(city);
+          forecast = await weatherService.getForecast(city);
+          errorMessage = null;
+        } else {
+          errorMessage = 'Unable to determine city from location';
+        }
       } catch (e) {
-        errorMessage = e.toString(); //catching them errors
+        errorMessage = e.toString();
       }
     } else if (status.isDenied) {
-      // Handle case when location permission is denied
       errorMessage = 'Location permission denied';
     } else if (status.isPermanentlyDenied) {
-      // Handle case when permission is permanently denied
       errorMessage =
           'Location permission permanently denied. Please enable it in settings.';
-      openAppSettings(); // Open app settings to allow the user to enable permissions
+      await openAppSettings();
     }
-
     //data fetching is now complete, setting isLoading to False
     isLoading = false;
     //update UI

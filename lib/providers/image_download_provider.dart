@@ -16,6 +16,8 @@ class ImageDownloadProvider extends ChangeNotifier {
   }
 
   void _subscribeToPhotos() {
+    //print("Fetching photos for city: $city");
+
     _subscription = FirebaseFirestore.instance
         .collection('photos')
         .where('city', isEqualTo: city)

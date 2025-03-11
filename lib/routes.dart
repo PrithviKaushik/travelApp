@@ -1,7 +1,8 @@
 import 'package:travel_app/screens/screens.dart';
+import 'package:travel_app/providers/providers.dart';
 
 var appRoutes = {
-  '/': (context) => SignUpScreen(),
+  '/signup': (context) => SignUpScreen(),
   '/signin': (context) => SignInScreen(),
   '/home': (context) => HomeScreen(),
   '/photos': (context) => PhotoListScreen(),

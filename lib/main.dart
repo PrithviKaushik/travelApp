@@ -5,6 +5,7 @@ import 'package:travel_app/providers/providers.dart';
 import 'package:travel_app/routes.dart';
 import 'package:travel_app/services/services.dart';
 import 'package:travel_app/theme.dart';
+import 'package:travel_app/widgets/auth_wrapper.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -58,6 +59,7 @@ class TravelApp extends StatelessWidget {
     return MaterialApp(
       title: 'TravelFree',
       theme: appTheme,
+      home: AuthWrapper(),
       routes: appRoutes,
     );
   }
