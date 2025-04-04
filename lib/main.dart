@@ -59,6 +59,7 @@ class TravelApp extends StatelessWidget {
       title: 'TravelFree',
       theme: appTheme,
       routes: appRoutes,
+      //home: AuthWrapper(),
     );
   }
 }

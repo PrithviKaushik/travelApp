@@ -28,7 +28,7 @@ class ImageModel {
       photoUrl: data['photoUrl'],
       userId: data['userId'],
       city: data['city'],
-      timestamp: data['timestamp'],
+      timestamp: data['timestamp'] ?? Timestamp.now(),
       likes: data['likes'],
     );
   }

@@ -8,7 +8,7 @@ class EmergencyServicesScreen extends StatelessWidget {
     // Hard-coded emergency services.
     return Scaffold(
       appBar: AppBar(
-        title: Text('Emergency Services in India'),
+        title: Text('Emergency Services'),
       ),
       body: ListView(
         padding: EdgeInsets.all(16),

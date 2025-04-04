@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:travel_app/screens/emergency_contacts_screen.dart';
 import 'package:travel_app/shared/bottom_nav.dart';
 import 'package:travel_app/providers/providers.dart';
 import 'package:travel_app/widgets/destinations.dart';
@@ -31,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('TravelFree'),
+        title: Text('Travel App'),
       ),
       drawer: Drawer(
         backgroundColor: Theme.of(context).colorScheme.surface,
@@ -77,7 +78,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               onTap: () {
-                // Add navigation or functionality here.
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return EmergencyServicesScreen();
+                  },
+                ));
               },
             ),
             ListTile(
@@ -93,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               onTap: () async {
                 await authProvider.signOut();
-                Navigator.pushReplacementNamed(context, '/');
+                Navigator.pushReplacementNamed(context, '/signin');
               },
             ),
           ],
